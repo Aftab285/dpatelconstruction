@@ -65,7 +65,7 @@ import Footer from '../components/Footer.astro';
             </svg>
             <div>
               <div class="info-label">Phone</div>
-              <div class="info-value">(619) 555-0142</div>
+              <div class="info-value"><a href="tel:6192933349" class="info-link">619.293.3349</a></div>
             </div>
           </div>
           
@@ -76,7 +76,7 @@ import Footer from '../components/Footer.astro';
             </svg>
             <div>
               <div class="info-label">Email</div>
-              <div class="info-value">info@dpatelconstruction.com</div>
+              <div class="info-value"><a href="mailto:info@dpatelconstruction.com" class="info-link">info@dpatelconstruction.com</a></div>
             </div>
           </div>
           
@@ -87,7 +87,7 @@ import Footer from '../components/Footer.astro';
             </svg>
             <div>
               <div class="info-label">Address</div>
-              <div class="info-value">123 Construction Way, San Diego, CA 92101</div>
+              <div class="info-value">4085 Pacific Highway, Suite 110<br />San Diego, CA 92110</div>
             </div>
           </div>
           
@@ -265,6 +265,17 @@ import Footer from '../components/Footer.astro';
   .info-value {
     color: var(--color-charcoal);
     font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .info-link {
+    color: var(--color-charcoal);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .info-link:hover {
+    color: var(--color-gold);
   }
 
   /* Responsive */
