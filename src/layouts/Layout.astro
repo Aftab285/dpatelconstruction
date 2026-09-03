@@ -1,0 +1,107 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalURL?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'D Patel Construction delivers quality craftsmanship, dependable project management, and construction solutions built around your vision.',
+  canonicalURL = Astro.url.href,
+  ogImage = '/logo.png',
+} = Astro.props;
+
+const siteUrl = 'https://dpatelconstruction.com';
+const fullTitle = title.includes('D Patel Construction') ? title : `${title} | D Patel Construction`;
+const resolvedOgImage = new URL(ogImage, Astro.site || siteUrl).href;
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "D Patel Construction",
+  "url": siteUrl,
+  "logo": new URL('/favicon.svg', siteUrl).href,
+  "image": resolvedOgImage,
+  "description": description,
+  "telephone": "+1 (555) 019-2834",
+  "email": "contact@dpatelconstruction.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "742 Evergreen Terrace",
+    "addressLocality": "Los Angeles",
+    "addressRegion": "CA",
+    "postalCode": "90001",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    "Commercial Construction",
+    "Residential Remodeling",
+    "Industrial Renovations",
+    "Project Management"
+  ],
+  "priceRange": "$$"
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="D Patel Construction" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={resolvedOgImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- LocalBusiness Schema JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Scroll Reveal Observer -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      );
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

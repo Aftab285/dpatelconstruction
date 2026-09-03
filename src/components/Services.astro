@@ -1,0 +1,116 @@
+---
+import ServiceCard from './ServiceCard.astro';
+
+const services = [
+  {
+    number: "01",
+    title: "Residential Construction",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&fit=crop",
+    description: "Custom luxury homes and modern multi-family residences crafted with uncompromising precision and enduring value.",
+    href: "/services#residential"
+  },
+  {
+    number: "02",
+    title: "Commercial Construction",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80&fit=crop",
+    description: "Corporate headquarters, retail centers, and industrial facilities engineered for optimal efficiency and structural excellence.",
+    href: "/services#commercial"
+  },
+  {
+    number: "03",
+    title: "Renovations & Remodeling",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80&fit=crop",
+    description: "Architectural transformations revitalizing existing properties with modern open layouts and flawless finish quality.",
+    href: "/services#renovations"
+  }
+];
+---
+
+<section class="section services-section" id="services">
+  <div class="container">
+    <div class="services-header">
+      <span class="section-label">WHAT WE DO</span>
+      <h2 class="section-title">Comprehensive Construction Solutions</h2>
+      <p class="section-subtitle">Explore our three core pillars of building excellence.</p>
+    </div>
+
+    <div class="services-grid">
+      {services.map((service) => (
+        <ServiceCard
+          number={service.number}
+          title={service.title}
+          image={service.image}
+          description={service.description}
+          href={service.href}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    padding: 7rem 0;
+    background-color: var(--color-off-white);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-navy-dark);
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1.125rem;
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-section {
+      padding: 5rem 0;
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

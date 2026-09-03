@@ -1,0 +1,213 @@
+---
+interface Props {
+  image: string;
+  number: string;
+  title: string;
+  description: string;
+  href?: string;
+}
+
+const { image, number, title, description, href = "/services" } = Astro.props;
+---
+
+<a href={href} class="service-card" aria-label={title}>
+  <!-- Native img tag for guaranteed image loading -->
+  <div class="service-image-wrap">
+    <img src={image} alt={title} class="service-img" loading="lazy" />
+  </div>
+  
+  <!-- Architectural Dark Gradient Overlay on the image -->
+  <div class="service-overlay"></div>
+  
+  <!-- Text Content directly layered ON the image -->
+  <div class="service-content">
+    <div class="service-badge">
+      <span class="service-number">{number}</span>
+    </div>
+    
+    <h3 class="service-title">{title}</h3>
+    
+    <!-- Short, concise text on the image revealed on hover -->
+    <p class="service-desc">{description}</p>
+    
+    <div class="service-link">
+      <span class="link-text">Explore Service</span>
+      <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </div>
+  </div>
+</a>
+
+<style>
+  .service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 500px;
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    background-color: var(--color-navy-dark);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+    cursor: pointer;
+  }
+
+  .service-card:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 16px 40px rgba(15, 37, 64, 0.35);
+    transform: translateY(-4px);
+  }
+
+  /* Image fills the entire card */
+  .service-image-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .service-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+  }
+
+  .service-card:hover .service-img {
+    transform: scale(1.08);
+  }
+
+  /* Gradient Overlay directly on image */
+  .service-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to top,
+      rgba(15, 37, 64, 0.94) 0%,
+      rgba(15, 37, 64, 0.65) 45%,
+      rgba(15, 37, 64, 0.15) 100%
+    );
+    z-index: 2;
+    transition: background 0.5s ease;
+  }
+
+  .service-card:hover .service-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(15, 37, 64, 0.98) 0%,
+      rgba(15, 37, 64, 0.82) 55%,
+      rgba(15, 37, 64, 0.3) 100%
+    );
+  }
+
+  /* Content layered strictly ON top of the image */
+  .service-content {
+    position: relative;
+    z-index: 3;
+    padding: 2.25rem 2rem;
+    width: 100%;
+    transform: translateY(52px);
+    transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+  }
+
+  .service-card:hover .service-content {
+    transform: translateY(0);
+  }
+
+  .service-badge {
+    margin-bottom: 0.5rem;
+  }
+
+  .service-number {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    letter-spacing: 0.08em;
+    display: inline-block;
+  }
+
+  .service-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-white);
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* Short description that reveals on cursor hover */
+  .service-desc {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0 0 1.25rem 0;
+    max-width: 90%;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s;
+  }
+
+  .service-card:hover .service-desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Arrow CTA link on the image */
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s, color 0.3s ease;
+  }
+
+  .service-card:hover .service-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .service-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover .service-arrow {
+    transform: translateX(5px);
+  }
+
+  /* Mobile / Touch adaptations */
+  @media (max-width: 768px) {
+    .service-card {
+      height: 420px;
+    }
+
+    .service-content {
+      transform: translateY(0);
+      padding: 1.75rem 1.5rem;
+    }
+
+    .service-desc,
+    .service-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

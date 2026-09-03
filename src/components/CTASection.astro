@@ -1,0 +1,93 @@
+---
+---
+<section class="cta-section">
+  <div class="cta-content reveal">
+    <h2>LET'S BUILD SOMETHING GREAT.</h2>
+    <p>Have a project in mind? Let's talk about how D Patel Construction can bring it to life.</p>
+    <a href="/contact" class="btn-primary">Request a Quote</a>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    position: relative;
+    padding: 8rem 0;
+    text-align: center;
+    color: var(--color-white);
+    overflow: hidden;
+    background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 37, 64, 0.8);
+    z-index: 0;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 1.5rem;
+  }
+
+  .cta-content h2 {
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-content p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 550px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background-color: var(--color-gold);
+    color: var(--color-navy-dark);
+    padding: 1rem 2.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .cta-section {
+      padding: 5rem 1.5rem;
+      background-attachment: scroll; /* Better for iOS */
+    }
+  }
+</style>

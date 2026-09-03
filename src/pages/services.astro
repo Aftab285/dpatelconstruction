@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import CTASection from '../components/CTASection.astro';
+import Footer from '../components/Footer.astro';
+
+const services = [
+  {
+    title: "Residential Construction",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&fit=crop",
+    desc1: "Transform your dream home into a reality with our comprehensive residential construction services. We handle everything from custom home builds to extensive renovations, ensuring every detail reflects your personal style and needs.",
+    desc2: "Our team works closely with architects, designers, and homeowners to deliver high-quality living spaces that stand the test of time, blending aesthetic appeal with functional living.",
+    bullets: ["Custom Home Builds", "Multi-family Developments", "Home Additions", "Structural Upgrades"]
+  },
+  {
+    title: "Commercial Construction",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&fit=crop",
+    desc1: "We provide tailored commercial construction solutions designed to support your business goals. From retail spaces to modern office buildings, we understand the unique requirements of commercial projects.",
+    desc2: "Our focus is on minimizing downtime and maximizing efficiency, delivering state-of-the-art facilities that enhance productivity and leave a lasting impression on your clients.",
+    bullets: ["Office Buildings", "Retail Spaces & Plazas", "Restaurants & Hospitality", "Industrial Facilities"]
+  },
+  {
+    title: "Renovations & Remodeling",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80&fit=crop",
+    desc1: "Breathe new life into your existing property with our expert renovation and remodeling services. We seamlessly blend modern updates with existing architectural elements.",
+    desc2: "Whether it's a kitchen overhaul, a bathroom upgrade, or a complete structural makeover, we ensure the process is smooth and the outcome exceeds your expectations.",
+    bullets: ["Kitchen & Bath Remodels", "Whole Home Renovations", "Exterior Facelifts", "Historic Restorations"]
+  },
+  {
+    title: "General Contracting",
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&fit=crop",
+    desc1: "As your general contractor, we take full responsibility for the daily oversight of your construction site, management of vendors and trades, and the communication of information to all involved parties.",
+    desc2: "We leverage our vast network of trusted subcontractors and suppliers to ensure the highest quality materials and workmanship, keeping your project on schedule and on budget.",
+    bullets: ["Site Management", "Vendor Coordination", "Quality Control", "Permitting & Compliance"]
+  },
+  {
+    title: "Project Management",
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80&fit=crop",
+    desc1: "Our professional project management services guarantee that your construction project is executed flawlessly from conception to completion. We act as your representative, protecting your interests at every step.",
+    desc2: "We utilize advanced scheduling, budgeting, and tracking tools to mitigate risks and ensure transparent communication, providing you with peace of mind throughout the entire build.",
+    bullets: ["Budget Management", "Timeline Scheduling", "Risk Mitigation", "Transparent Reporting"]
+  },
+  {
+    title: "Custom Construction",
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80&fit=crop",
+    desc1: "For projects that defy standard categorization, our custom construction services offer the flexibility and expertise needed to tackle unique challenges and specialized requirements.",
+    desc2: "From highly specialized medical facilities to intricate architectural features, we have the technical prowess and innovative mindset to bring your most ambitious concepts to life.",
+    bullets: ["Specialty Structures", "Complex Architectural Builds", "Sustainable/Green Building", "Advanced Tech Integration"]
+  }
+];
+---
+
+<Layout title='Our Services | D Patel Construction' description='Explore D Patel Construction services — residential, commercial, renovations, general contracting, project management, and custom construction.'>
+  <Header currentPath={Astro.url.pathname} />
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <span class="eyebrow">OUR SERVICES</span>
+        <h1>Comprehensive Construction Solutions</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        {services.map((service, index) => (
+          <div class={`service-block ${index % 2 !== 0 ? 'reversed' : ''}`}>
+            <div class="service-image reveal">
+              <img src={service.image} alt={service.title} loading="lazy" />
+            </div>
+            <div class="service-content reveal">
+              <span class="service-number">{(index + 1).toString().padStart(2, '0')}</span>
+              <h2>{service.title}</h2>
+              <p>{service.desc1}</p>
+              <p>{service.desc2}</p>
+              <ul class="service-bullets">
+                {service.bullets.map(bullet => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+              <a href="/contact" class="btn-primary">Get a Quote</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <CTASection />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    height: 50vh;
+    min-height: 400px;
+    background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80&fit=crop');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 37, 64, 0.7);
+    z-index: 1;
+  }
+
+  .page-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 1.5rem;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-white);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Services Detail */
+  .service-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 7rem;
+  }
+
+  .service-block:last-child {
+    margin-bottom: 0;
+  }
+
+  .service-block.reversed .service-image {
+    order: 2;
+  }
+
+  .service-block.reversed .service-content {
+    order: 1;
+  }
+
+  .service-image {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  }
+
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .service-block:hover .service-image img {
+    transform: scale(1.05);
+  }
+
+  .service-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .service-content h2 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-navy-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .service-content p {
+    color: var(--color-charcoal);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+
+  .service-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .service-bullets li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--color-navy);
+    font-weight: 500;
+  }
+
+  .service-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-weight: bold;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background-color: var(--color-gold);
+    color: var(--color-navy-dark);
+    padding: 1rem 2.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .service-block {
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .service-block {
+      grid-template-columns: 1fr;
+      margin-bottom: 5rem;
+    }
+    
+    .service-block.reversed .service-image,
+    .service-block.reversed .service-content {
+      order: unset;
+    }
+    
+    .service-bullets {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

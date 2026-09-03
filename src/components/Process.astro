@@ -1,0 +1,166 @@
+---
+---
+<section class="process section">
+  <div class="container">
+    <div class="process-header">
+      <span class="section-label">HOW WE WORK</span>
+      <h2 class="section-title">A proven process. Exceptional results.</h2>
+    </div>
+
+    <div class="process-grid reveal">
+      <div class="process-step">
+        <span class="step-number">01</span>
+        <h3>DISCOVER</h3>
+        <p>Understand the client's vision, project requirements, and goals through detailed consultation.</p>
+      </div>
+
+      <div class="process-step">
+        <span class="step-number">02</span>
+        <h3>PLAN</h3>
+        <p>Develop a comprehensive project strategy, scope, timeline, and execution plan.</p>
+      </div>
+
+      <div class="process-step">
+        <span class="step-number">03</span>
+        <h3>BUILD</h3>
+        <p>Execute construction with skilled teams, quality materials, and meticulous attention to detail.</p>
+      </div>
+
+      <div class="process-step">
+        <span class="step-number">04</span>
+        <h3>DELIVER</h3>
+        <p>Complete the project with thorough inspections and a focus on client satisfaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    background-color: var(--color-off-white);
+    padding: 7rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .process-header {
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-navy-dark);
+    margin: 0;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  /* Connecting line for desktop */
+  @media (min-width: 1025px) {
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 30px; /* half of 60px height */
+      left: calc(12.5% + 30px);
+      right: calc(12.5% + 30px);
+      height: 2px;
+      background: var(--color-gray-light);
+      z-index: 0;
+    }
+  }
+
+  .process-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    color: var(--color-navy-dark);
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 10px var(--color-off-white); /* Masks line cleanly */
+  }
+
+  .process-step h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .process-step p {
+    color: var(--color-gray);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1024px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .process {
+      padding: 5rem 0;
+    }
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+    .process-step {
+      max-width: 320px;
+      margin: 0 auto;
+    }
+  }
+</style>

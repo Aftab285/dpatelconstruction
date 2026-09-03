@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import Projects from '../components/Projects.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import Process from '../components/Process.astro';
+import CTASection from '../components/CTASection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title='D Patel Construction | Quality Construction & Building Services' description='D Patel Construction delivers quality craftsmanship, dependable project management, and construction solutions built around your vision. Residential & commercial construction in San Diego.'>
+  <Header currentPath={Astro.url.pathname} />
+  <main>
+    <Hero />
+    <About />
+    <Services />
+    <Projects />
+    <WhyChooseUs />
+    <Process />
+    <CTASection />
+  </main>
+  <Footer />
+</Layout>

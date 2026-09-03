@@ -1,0 +1,475 @@
+---
+---
+
+<section class="hero-section" id="hero">
+  <div class="slider-container" id="slider">
+    <!-- Slide 1 (Video) -->
+    <div class="slide active" data-slide="0">
+      <video
+        id="hero-video"
+        src="https://res.cloudinary.com/dhyfg2m2x/video/upload/v1788435889/make_it_video_wckjmi.mp4"
+        autoplay
+        muted
+        playsinline
+        class="bg-media"
+      ></video>
+      <div class="overlay"></div>
+      <div class="container hero-content">
+        <div class="content-wrapper">
+          <span class="eyebrow">PRECISION ENGINEERING</span>
+          <h1 class="hero-title">Shaping the Skyline with Vision & Strength.</h1>
+          <p class="hero-text">From foundational groundbreaking to modern architectural landmarks, D Patel Construction leads every build with master craftsmanship and dependable leadership.</p>
+          <div class="hero-ctas">
+            <a href="/contact" class="btn btn-primary">Request a Quote</a>
+            <a href="/projects" class="btn btn-secondary">Explore Our Work</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 (Image) -->
+    <div class="slide" data-slide="1">
+      <img
+        src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80&fit=crop"
+        alt="Built for Tomorrow"
+        class="bg-media"
+        loading="lazy"
+      />
+      <div class="overlay"></div>
+      <div class="container hero-content">
+        <div class="content-wrapper">
+          <span class="eyebrow">BUILT FOR TOMORROW</span>
+          <h1 class="hero-title">Built to Last. Designed for What's Next.</h1>
+          <p class="hero-text">D Patel Construction delivers quality craftsmanship, dependable project management, and construction solutions built around your vision.</p>
+          <div class="hero-ctas">
+            <a href="/contact" class="btn btn-primary">Request a Quote</a>
+            <a href="/projects" class="btn btn-secondary">View Our Projects</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slider Indicators (Right Side Progress Lines) -->
+  <div class="slider-indicators" aria-label="Slider progress lines">
+    <button class="indicator active" data-target="0" aria-label="Video Slide">
+      <div class="track">
+        <div class="progress" id="progress-0"></div>
+      </div>
+    </button>
+    <button class="indicator" data-target="1" aria-label="Image Slide">
+      <div class="track">
+        <div class="progress" id="progress-1"></div>
+      </div>
+    </button>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    background-color: var(--color-navy-dark);
+  }
+
+  .slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .bg-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(15, 37, 64, 0.9) 0%, rgba(15, 37, 64, 0.5) 50%, rgba(15, 37, 64, 0.2) 100%);
+    z-index: 2;
+  }
+
+  .container {
+    position: relative;
+    z-index: 3;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 150px 1.5rem 80px 1.5rem; /* Generous 150px top padding so eyebrow never touches header */
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+    padding-bottom: 2rem;
+    padding-left: 0; /* Indicators are now on the right side */
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-top: 1rem;
+    margin-bottom: 1.25rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.6s ease 0.2s;
+  }
+
+  .slide.active .eyebrow {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .hero-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-white);
+    margin-bottom: 1.5rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.6s ease 0.4s;
+  }
+
+  .slide.active .hero-title {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .hero-text {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-off-white);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.6s ease 0.6s;
+  }
+
+  .slide.active .hero-text {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.6s ease 0.8s;
+  }
+
+  .slide.active .hero-ctas {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 1rem 2.25rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background-color: var(--color-gold);
+    color: var(--color-navy-dark);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 2px solid var(--color-white);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-white);
+    color: var(--color-navy-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  /* Slider Indicators - Right Side Progress Lines */
+  .slider-indicators {
+    position: absolute;
+    right: 2.5rem;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .indicator {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0.5rem 0.25rem;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .indicator:hover, .indicator.active {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .track {
+    width: 3px;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.25);
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+
+  .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background-color: var(--color-gold);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 130px 1.5rem 80px 1.5rem;
+    }
+
+    .content-wrapper {
+      padding-left: 0;
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+    }
+
+    .hero-ctas {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .slider-indicators {
+      right: 50%;
+      left: auto;
+      bottom: 2rem;
+      top: auto;
+      transform: translateX(50%);
+      width: auto;
+      flex-direction: row;
+      justify-content: center;
+      gap: 1.25rem;
+      padding: 0;
+    }
+
+    .track {
+      width: 50px;
+      height: 3px;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Slider Logic
+  const slides = document.querySelectorAll('.slide');
+  const indicators = document.querySelectorAll('.indicator');
+  const video = document.getElementById('hero-video') as HTMLVideoElement;
+  const progressBars = [
+    document.getElementById('progress-0'),
+    document.getElementById('progress-1')
+  ];
+  
+  let currentSlide = 0;
+  let imageSlideDuration = 7000; // 7 seconds for image slide
+  let animationFrame: number;
+  let imageSlideStartTime = 0;
+  let isImageSlidePlaying = false;
+
+  function goToSlide(index: number) {
+    // Reset classes
+    slides.forEach(s => s.classList.remove('active'));
+    indicators.forEach(i => i.classList.remove('active'));
+    progressBars.forEach(p => { if (p) p.style.height = '0%'; p.style.width = '0%'; });
+    
+    // Set active
+    slides[index].classList.add('active');
+    indicators[index].classList.add('active');
+    currentSlide = index;
+
+    cancelAnimationFrame(animationFrame);
+    isImageSlidePlaying = false;
+
+    if (index === 0) {
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(e => console.log('Autoplay prevented:', e));
+        updateVideoProgress();
+      }
+    } else {
+      if (video) {
+        video.pause();
+      }
+      imageSlideStartTime = performance.now();
+      isImageSlidePlaying = true;
+      updateImageProgress(performance.now());
+    }
+  }
+
+  function updateVideoProgress() {
+    if (!video || currentSlide !== 0) return;
+    
+    if (video.duration) {
+      const percentage = (video.currentTime / video.duration) * 100;
+      updateProgressUI(0, percentage);
+      if (percentage >= 99.5 || video.ended) {
+        goToSlide(1);
+        return;
+      }
+    }
+    
+    animationFrame = requestAnimationFrame(updateVideoProgress);
+  }
+
+  function updateImageProgress(timestamp: number) {
+    if (currentSlide !== 1 || !isImageSlidePlaying) return;
+    
+    const elapsed = timestamp - imageSlideStartTime;
+    let percentage = (elapsed / imageSlideDuration) * 100;
+    
+    if (percentage >= 100) {
+      percentage = 100;
+      updateProgressUI(1, percentage);
+      goToSlide(0);
+      return;
+    }
+    
+    updateProgressUI(1, percentage);
+    animationFrame = requestAnimationFrame(updateImageProgress);
+  }
+
+  function updateProgressUI(index: number, percentage: number) {
+    const bar = progressBars[index];
+    if (!bar) return;
+    if (window.innerWidth <= 768) {
+      bar.style.width = `${percentage}%`;
+      bar.style.height = '100%';
+    } else {
+      bar.style.height = `${percentage}%`;
+      bar.style.width = '100%';
+    }
+  }
+
+  // Handle video events & initial playback
+  if (video) {
+    video.addEventListener('timeupdate', () => {
+      if (currentSlide === 0 && video.duration) {
+        const percentage = (video.currentTime / video.duration) * 100;
+        updateProgressUI(0, percentage);
+      }
+    });
+
+    video.addEventListener('ended', () => {
+      if (currentSlide === 0) {
+        goToSlide(1);
+      }
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+      if (currentSlide === 0) {
+        cancelAnimationFrame(animationFrame);
+        updateVideoProgress();
+      }
+    });
+    
+    // Initial start
+    video.play().catch(e => console.log('Autoplay prevented:', e));
+    updateVideoProgress();
+  }
+
+  // Handle indicator clicks
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      if (currentSlide !== index) {
+        goToSlide(index);
+      }
+    });
+  });
+  
+  // Handle window resize for progress bar orientation
+  window.addEventListener('resize', () => {
+    // Reset all unactive bars
+    progressBars.forEach((p, i) => {
+      if (i !== currentSlide && p) {
+        p.style.width = '0%';
+        p.style.height = '0%';
+      }
+    });
+  });
+</script>

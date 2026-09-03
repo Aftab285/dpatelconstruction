@@ -1,0 +1,189 @@
+---
+---
+
+<section class="about section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <img 
+          src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&fit=crop" 
+          alt="D Patel Construction team at work on a commercial building project" 
+          loading="lazy"
+          class="image"
+        />
+        <div class="image-decoration"></div>
+      </div>
+      <div class="about-content reveal">
+        <span class="section-label">ABOUT D PATEL CONSTRUCTION</span>
+        <h2 class="section-title">Quality Construction. Built Around Your Vision.</h2>
+        <p class="about-text">
+          For over a decade, D Patel Construction has been delivering exceptional construction services with an unwavering commitment to quality, safety, and client satisfaction. From residential builds to commercial projects, we bring precision, integrity, and a results-driven approach to every job. Our team of skilled professionals works closely with each client to ensure their vision becomes a reality — on time, on budget, and built to the highest standards.
+        </p>
+        <p class="about-text mb-large">
+          We believe that great construction isn't just about buildings — it's about building trust, relationships, and communities.
+        </p>
+        <a href="/about" class="btn-text">
+          Learn More <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Simple intersection observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+<style>
+  :root {
+    --color-navy: #1B3A5C;
+    --color-gold: #D4A017;
+    --color-charcoal: #2C2C2C;
+  }
+
+  .section {
+    padding: 7rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-image {
+    position: relative;
+  }
+
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 4/5;
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+
+  .image-decoration {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border: 3px solid var(--color-gold);
+    bottom: -20px;
+    right: -20px;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .section-title {
+    color: var(--color-navy);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 1rem 0 1.5rem;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .about-text {
+    color: var(--color-charcoal);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .mb-large {
+    margin-bottom: 2rem;
+  }
+
+  .btn-text {
+    color: var(--color-gold);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: gap 0.3s ease;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .btn-text:hover {
+    gap: 0.75rem;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1024px) {
+    .about-grid {
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 5rem 0;
+    }
+    
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-content {
+      order: 2;
+    }
+
+    .about-image {
+      order: 1;
+    }
+
+    .image {
+      aspect-ratio: 16/9;
+    }
+
+    .image-decoration {
+      display: none;
+    }
+  }
+</style>

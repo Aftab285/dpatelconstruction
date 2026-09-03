@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CTASection from '../components/CTASection.astro';
+import Footer from '../components/Footer.astro';
+
+const projects = [
+  {
+    title: 'Modern Office Complex',
+    category: 'Commercial',
+    location: 'Downtown San Diego',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Luxury Coastal Villa',
+    category: 'Residential',
+    location: 'La Jolla, CA',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Tech Hub Renovation',
+    category: 'Renovation',
+    location: 'Sorrento Valley, CA',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Boutique Hotel',
+    category: 'Commercial',
+    location: 'Gaslamp Quarter',
+    image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Minimalist Family Home',
+    category: 'Residential',
+    location: 'Carmel Valley, CA',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Historic Retail Space',
+    category: 'Renovation',
+    location: 'Old Town, CA',
+    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Seaside Apartments',
+    category: 'Residential',
+    location: 'Encinitas, CA',
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Innovation Hub',
+    category: 'Commercial',
+    location: 'Sorrento Valley, CA',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&fit=crop'
+  },
+  {
+    title: 'Heritage Home Renovation',
+    category: 'Renovation',
+    location: 'Coronado, CA',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80&fit=crop'
+  }
+];
+---
+
+<Layout title='Our Projects | D Patel Construction' description='View our portfolio of residential, commercial, and renovation projects showcasing D Patel Construction quality and craftsmanship.'>
+  <Header currentPath={Astro.url.pathname} />
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <span class="eyebrow">OUR PORTFOLIO</span>
+        <h1>Projects That Define Excellence</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="filters">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Commercial</button>
+          <button class="filter-btn">Residential</button>
+          <button class="filter-btn">Renovation</button>
+        </div>
+        
+        <div class="projects-grid">
+          {projects.map(project => (
+            <ProjectCard 
+              title={project.title}
+              category={project.category}
+              location={project.location}
+              image={project.image}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTASection />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    height: 50vh;
+    min-height: 400px;
+    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&fit=crop');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 37, 64, 0.7);
+    z-index: 1;
+  }
+
+  .page-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 1.5rem;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-white);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 2px solid var(--color-gray-light);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    color: var(--color-navy);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-navy);
+  }
+
+  .filter-btn.active {
+    background: var(--color-navy);
+    border-color: var(--color-navy);
+    color: var(--color-white);
+  }
+
+  /* Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

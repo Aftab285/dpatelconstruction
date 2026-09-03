@@ -1,0 +1,345 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Services', href: '/services' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Contact', href: '/contact' },
+];
+---
+
+<header id="header" class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo-link" aria-label="Home">
+      <img src="/logo.png" alt="D Patel Construction" width="180" height="90" class="logo" />
+    </a>
+    
+    <nav class="desktop-nav" aria-label="Main Navigation">
+      <ul class="nav-list">
+        {navLinks.map(link => (
+          <li>
+            <a href={link.href} class:list={['nav-link', { active: currentPath === link.href || currentPath === link.href + '/' }]}>
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    
+    <a href="/contact" class="btn-primary header-cta desktop-cta">Request a Quote</a>
+    
+    <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+  </div>
+  
+  <div id="mobile-menu" class="mobile-menu">
+    <nav aria-label="Mobile Navigation">
+      <ul class="mobile-nav-list">
+        {navLinks.map(link => (
+          <li>
+            <a href={link.href} class:list={['mobile-nav-link', { active: currentPath === link.href || currentPath === link.href + '/' }]}>
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a href="/contact" class="btn-primary mobile-cta">Request a Quote</a>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const mobileCta = document.querySelector('.mobile-cta');
+
+  // Handle scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  });
+
+  // Toggle mobile menu
+  function toggleMenu() {
+    const isExpanded = hamburger?.getAttribute('aria-expanded') === 'true';
+    hamburger?.setAttribute('aria-expanded', String(!isExpanded));
+    hamburger?.classList.toggle('active');
+    mobileMenu?.classList.toggle('active');
+    document.body.style.overflow = isExpanded ? '' : 'hidden'; // Prevent scrolling when menu is open
+  }
+
+  hamburger?.addEventListener('click', toggleMenu);
+
+  // Close mobile menu on link click
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', toggleMenu);
+  });
+  mobileCta?.addEventListener('click', toggleMenu);
+</script>
+
+<style>
+  /* Base Variables */
+  :root {
+    --color-navy: #1B3A5C;
+    --color-navy-dark: #0F2540;
+    --color-gold: #D4A017;
+    --color-gold-light: #E8B84B;
+    --color-gold-hover: #C4911A;
+    --color-white: #FFFFFF;
+    --color-off-white: #F7F5F0;
+    --color-charcoal: #2C2C2C;
+    --color-gray: #6B7280;
+    --color-gray-light: #E5E7EB;
+    --color-concrete: #EDEDED;
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, height 0.3s ease, padding 0.3s ease;
+    background-color: transparent;
+    padding: 0.5rem 0;
+    height: 115px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .header.scrolled {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    height: 95px;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    display: block;
+    height: 85px;
+    max-height: 85px;
+    width: auto;
+    object-fit: contain;
+    /* Default state over dark hero: make logo white with drop shadow for clarity */
+    filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+    transition: all 0.3s ease;
+  }
+
+  .header.scrolled .logo {
+    /* Scrolled state: show original colored logo */
+    height: 72px;
+    max-height: 72px;
+    filter: none;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  @media (min-width: 1025px) {
+    .desktop-nav {
+      display: block;
+    }
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2.5rem;
+  }
+
+  .nav-link {
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .header.scrolled .nav-link {
+    color: var(--color-charcoal);
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--color-gold);
+  }
+  
+  .header.scrolled .nav-link:hover, .header.scrolled .nav-link.active {
+    color: var(--color-gold);
+  }
+
+  .btn-primary {
+    background-color: var(--color-gold);
+    color: var(--color-navy-dark);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .header-cta {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .desktop-cta {
+    display: none;
+  }
+
+  @media (min-width: 1025px) {
+    .desktop-cta {
+      display: inline-block;
+    }
+  }
+
+  .hamburger {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+  }
+
+  @media (min-width: 1025px) {
+    .hamburger {
+      display: none;
+    }
+  }
+
+  .hamburger .line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-white);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+
+  .header.scrolled .hamburger .line {
+    background-color: var(--color-charcoal);
+  }
+  
+  /* When mobile menu is active, hamburger is white */
+  .hamburger.active .line {
+    background-color: var(--color-white);
+  }
+
+  .hamburger.active .line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger.active .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-navy-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+    z-index: 999;
+  }
+
+  .mobile-menu.active {
+    transform: translateY(0);
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0 0 3rem 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .mobile-nav-link {
+    color: var(--color-white);
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .mobile-nav-link:hover, .mobile-nav-link.active {
+    color: var(--color-gold);
+  }
+
+  .mobile-cta {
+    padding: 1rem 2.25rem;
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 768px) {
+    .header {
+      height: 90px;
+    }
+    .logo {
+      height: 68px;
+      max-height: 68px;
+    }
+    .container {
+      padding: 0.75rem 1.5rem;
+    }
+  }
+</style>

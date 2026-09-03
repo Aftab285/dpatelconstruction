@@ -1,0 +1,159 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+const projects = [
+  {
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&fit=crop',
+    title: 'Skyline Tower',
+    category: 'Commercial',
+    location: 'San Diego, CA',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80&fit=crop',
+    title: 'Meridian Residence',
+    category: 'Residential',
+    location: 'La Jolla, CA',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&fit=crop',
+    title: 'Harbor Point Complex',
+    category: 'Mixed-Use',
+    location: 'Oceanside, CA',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&q=80&fit=crop',
+    title: 'Pinnacle Office Park',
+    category: 'Commercial',
+    location: 'Carlsbad, CA',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&fit=crop',
+    title: 'Coastal View Estate',
+    category: 'Residential',
+    location: 'Del Mar, CA',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&fit=crop',
+    title: 'Metro Center Renovation',
+    category: 'Renovation',
+    location: 'Downtown SD, CA',
+  }
+];
+---
+
+<section class="projects section">
+  <div class="container">
+    <div class="projects-header">
+      <div class="header-content">
+        <span class="section-label">SELECTED PROJECTS</span>
+        <h2 class="section-title">A closer look at the work we're proud to build.</h2>
+      </div>
+      <a href="/projects" class="btn-outline">View All Projects &rarr;</a>
+    </div>
+
+    <div class="projects-grid reveal">
+      {projects.map(project => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: 7rem 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .header-content {
+    max-width: 600px;
+  }
+
+  .section-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-navy-dark);
+    margin: 0;
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 1rem 2.25rem;
+    border: 2px solid var(--color-navy);
+    color: var(--color-navy);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    background: var(--color-navy);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 37, 64, 0.2);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 5rem 0;
+    }
+    .projects-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
