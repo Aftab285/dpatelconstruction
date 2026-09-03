@@ -1,13 +1,18 @@
-﻿import type { APIRoute } from 'astro';
+import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const apiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+    const cfEnv = (locals as any)?.runtime?.env;
+    const apiKey =
+      cfEnv?.RESEND_API_KEY ||
+      import.meta.env.RESEND_API_KEY ||
+      process.env.RESEND_API_KEY;
+
     if (!apiKey) {
-      console.error('RESEND_API_KEY is not set in environment.');
+      console.error('RESEND_API_KEY is not configured in environment or Cloudflare Pages settings.');
       return new Response(
         JSON.stringify({ error: 'Server configuration error: RESEND_API_KEY is not configured.' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
