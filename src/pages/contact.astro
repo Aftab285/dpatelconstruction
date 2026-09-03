@@ -18,7 +18,9 @@ import Footer from '../components/Footer.astro';
       <div class="container contact-grid">
         <div class="contact-form-wrapper">
           <h2>Send Us a Message</h2>
-          <form class="contact-form" action="#" method="POST">
+          <form class="contact-form" id="contactForm" method="POST">
+            <div id="formStatus" class="form-status" style="display: none;"></div>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="fullName">Full Name</label>
@@ -51,7 +53,10 @@ import Footer from '../components/Footer.astro';
               <textarea id="message" name="message" rows="6" required></textarea>
             </div>
             
-            <button type="submit" class="btn-primary">Send Message</button>
+            <button type="submit" id="submitBtn" class="btn-primary">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-spinner" style="display: none;">Sending...</span>
+            </button>
           </form>
         </div>
         
@@ -106,6 +111,69 @@ import Footer from '../components/Footer.astro';
     </section>
   </main>
   <Footer />
+
+  <script>
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    const statusEl = document.getElementById('formStatus') as HTMLElement | null;
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+
+    if (form && statusEl && submitBtn) {
+      const btnText = submitBtn.querySelector('.btn-text') as HTMLElement | null;
+      const btnSpinner = submitBtn.querySelector('.btn-spinner') as HTMLElement | null;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        statusEl.style.display = 'none';
+        statusEl.className = 'form-status';
+        statusEl.innerHTML = '';
+
+        const formData = new FormData(form);
+        const payload = {
+          fullName: formData.get('fullName'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          projectType: formData.get('projectType'),
+          message: formData.get('message'),
+        };
+
+        submitBtn.disabled = true;
+        if (btnText) btnText.style.display = 'none';
+        if (btnSpinner) btnSpinner.style.display = 'inline-block';
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            form.reset();
+            statusEl.className = 'form-status success';
+            statusEl.innerHTML = '<strong>Inquiry Sent!</strong> Thank you, your message has been sent to info@dpatelconstruction.com. Our team will review your project details and get back to you shortly.';
+            statusEl.style.display = 'block';
+          } else {
+            statusEl.className = 'form-status error';
+            statusEl.innerHTML = '<strong>Error:</strong> ' + (result.error || 'Failed to send your message. Please try again or call us directly at 619.293.3349.');
+            statusEl.style.display = 'block';
+          }
+        } catch (err) {
+          statusEl.className = 'form-status error';
+          statusEl.innerHTML = '<strong>Submission Error:</strong> Unable to reach the server. Please call us directly at <a href="tel:6192933349" style="color: inherit; font-weight: 600;">619.293.3349</a> or email <a href="mailto:info@dpatelconstruction.com" style="color: inherit; font-weight: 600;">info@dpatelconstruction.com</a>.';
+          statusEl.style.display = 'block';
+        } finally {
+          submitBtn.disabled = false;
+          if (btnText) btnText.style.display = 'inline-block';
+          if (btnSpinner) btnSpinner.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </Layout>
 
 <style>
@@ -231,6 +299,35 @@ import Footer from '../components/Footer.astro';
     background-color: var(--color-gold-hover);
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Form Status Alert */
+  .form-status {
+    padding: 1.125rem 1.25rem;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .form-status.success {
+    background-color: #f0fdf4;
+    border: 1px solid #86efac;
+    color: #166534;
+  }
+
+  .form-status.error {
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
   }
 
   /* Contact Info */
