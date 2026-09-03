@@ -4,24 +4,27 @@ import ServiceCard from './ServiceCard.astro';
 const services = [
   {
     number: "01",
-    title: "Residential Construction",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&fit=crop",
-    description: "Custom luxury homes and modern multi-family residences crafted with uncompromising precision and enduring value.",
-    href: "/services#residential"
+    title: "Ground Up Development",
+    subtitle: "(Hotel, Multifamily, Single Family Residences)",
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=900&q=80&fit=crop",
+    description: "Full-scale new construction for luxury hotels, high-density multifamily complexes, and bespoke custom single-family estates.",
+    href: "/services#ground-up"
   },
   {
     number: "02",
-    title: "Commercial Construction",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80&fit=crop",
-    description: "Corporate headquarters, retail centers, and industrial facilities engineered for optimal efficiency and structural excellence.",
-    href: "/services#commercial"
+    title: "Tenant Improvements",
+    subtitle: "(Office and Residential)",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80&fit=crop",
+    description: "High-end interior build-outs, corporate office upgrades, and bespoke residential unit enhancements executed with precision.",
+    href: "/services#tenant-improvements"
   },
   {
     number: "03",
-    title: "Renovations & Remodeling",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80&fit=crop",
-    description: "Architectural transformations revitalizing existing properties with modern open layouts and flawless finish quality.",
-    href: "/services#renovations"
+    title: "Adaptive Reuse Conversions",
+    subtitle: "(Historic & Structural Repurposing)",
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80&fit=crop",
+    description: "Transforming existing architectural and industrial properties into modern commercial hubs and high-value living spaces.",
+    href: "/services#adaptive-reuse"
   }
 ];
 ---
@@ -39,6 +42,7 @@ const services = [
         <ServiceCard
           number={service.number}
           title={service.title}
+          subtitle={service.subtitle}
           image={service.image}
           description={service.description}
           href={service.href}

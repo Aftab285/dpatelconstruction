@@ -3,11 +3,12 @@ interface Props {
   image: string;
   number: string;
   title: string;
+  subtitle?: string;
   description: string;
   href?: string;
 }
 
-const { image, number, title, description, href = "/services" } = Astro.props;
+const { image, number, title, subtitle, description, href = "/services" } = Astro.props;
 ---
 
 <a href={href} class="service-card" aria-label={title}>
@@ -26,6 +27,7 @@ const { image, number, title, description, href = "/services" } = Astro.props;
     </div>
     
     <h3 class="service-title">{title}</h3>
+    {subtitle && <span class="service-subtitle">{subtitle}</span>}
     
     <!-- Short, concise text on the image revealed on hover -->
     <p class="service-desc">{description}</p>
@@ -142,8 +144,18 @@ const { image, number, title, description, href = "/services" } = Astro.props;
     font-weight: 700;
     line-height: 1.25;
     color: var(--color-white);
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.4rem 0;
     letter-spacing: -0.01em;
+  }
+
+  .service-subtitle {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.875rem;
   }
 
   /* Short description that reveals on cursor hover */
